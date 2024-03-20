@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # fitnessquest_v1
 
 A new Flutter project.
@@ -14,3 +15,7 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# Fitness-Quest
+Flutter Fitness Application
+>>>>>>> d86b693667a09183f9071019312c07f2bf6fa425
