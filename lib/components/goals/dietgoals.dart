@@ -116,7 +116,7 @@ class _DietState extends State<Diet> {
                         context: context,
                         builder: (BuildContext context) {
                           // Remove the extra argument
-                          return DietLogger();
+                          return LogDiet();
                         },
                       );
                     },
