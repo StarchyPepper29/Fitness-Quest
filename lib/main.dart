@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'components/account_creation/account_creator_index.dart'; // Import the hello_world.dart file
 import 'package:firebase_core/firebase_core.dart';
 import 'screens/goals.dart';
+import 'screens/story.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -71,10 +71,17 @@ class _LogDietState extends State<LogDiet> {
                       itemCount: foodItems.length,
                       itemBuilder: (BuildContext context, int index) {
                         int fdcId = foodItems[index]['fdcId'];
+                        int calories = foodItems[index]['foodNutrients']
+                            .firstWhere((element) =>
+                                element['nutrientId'] == 1008)['value']
+                            .round();
                         String description = foodItems[index]['description'];
                         return ListTile(
-                          title: Text('fdcId: $fdcId'),
-                          subtitle: Text(description),
+                          title: Text(description),
+                          subtitle: Text('Calories: $calories'),
+                          onTap: () {
+                            Navigator.of(context).pop(calories);
+                          },
                         );
                       },
                     );
