@@ -36,61 +36,60 @@ class _LogDietState extends State<LogDiet> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Food Search'),
-        ),
-        body: Column(
-          children: [
-            TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                labelText: 'Search for food',
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      _futureData = fetchData(_searchController.text);
-                    });
-                  },
-                  icon: Icon(Icons.search),
-                ),
-              ),
-            ),
-            Expanded(
-              child: FutureBuilder<List<dynamic>>(
-                future: _futureData,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  } else {
-                    List<dynamic> foodItems = snapshot.data!;
-                    return ListView.builder(
-                      itemCount: foodItems.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        int fdcId = foodItems[index]['fdcId'];
-                        int calories = foodItems[index]['foodNutrients']
-                            .firstWhere((element) =>
-                                element['nutrientId'] == 1008)['value']
-                            .round();
-                        String description = foodItems[index]['description'];
-                        return ListTile(
-                          title: Text(description),
-                          subtitle: Text('Calories: $calories'),
-                          onTap: () {
-                            Navigator.of(context).pop(calories);
-                          },
-                        );
-                      },
-                    );
-                  }
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Food Search'),
+      ),
+      body: Column(
+        children: [
+          TextField(
+            controller: _searchController,
+            decoration: InputDecoration(
+              labelText: 'Search for food',
+              suffixIcon: IconButton(
+                onPressed: () {
+                  setState(() {
+                    _futureData = fetchData(_searchController.text);
+                  });
                 },
+                icon: Icon(Icons.search),
               ),
             ),
-          ],
-        ),
+          ),
+          Expanded(
+            child: FutureBuilder<List<dynamic>>(
+              future: _futureData,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else {
+                  List<dynamic> foodItems = snapshot.data!;
+                  return ListView.builder(
+                    itemCount: foodItems.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      int fdcId = foodItems[index]['fdcId'];
+                      int calories = foodItems[index]['foodNutrients']
+                          .firstWhere((element) =>
+                              element['nutrientId'] == 1008)['value']
+                          .round();
+                      String description = foodItems[index]['description'];
+                      return ListTile(
+                        title: Text(description),
+                        subtitle: Text('Calories: $calories'),
+                        onTap: () {
+                          Navigator.of(context)
+                              .pop([calories.toString(), description]);
+                        },
+                      );
+                    },
+                  );
+                }
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
