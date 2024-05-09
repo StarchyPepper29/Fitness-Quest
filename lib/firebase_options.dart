@@ -69,6 +69,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '69331312356',
     projectId: 'fitnessquestflutter',
     storageBucket: 'fitnessquestflutter.appspot.com',
+    androidClientId: '69331312356-q7sa8oqhj8v315j6pn8f980lq4dvbuf0.apps.googleusercontent.com',
+    iosClientId: '69331312356-8bp5ge3nrvb57rdvn31vpsjmaapipq7h.apps.googleusercontent.com',
     iosBundleId: 'com.example.fitnessquestV1',
   );
 }

@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class LogDiet extends StatefulWidget {
-  const LogDiet({Key? key}) : super(key: key);
+  const LogDiet({super.key});
 
   @override
   State<LogDiet> createState() => _LogDietState();
@@ -38,7 +38,7 @@ class _LogDietState extends State<LogDiet> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Food Search'),
+        title: const Text('Food Search'),
       ),
       body: Column(
         children: [
@@ -52,7 +52,7 @@ class _LogDietState extends State<LogDiet> {
                     _futureData = fetchData(_searchController.text);
                   });
                 },
-                icon: Icon(Icons.search),
+                icon: const Icon(Icons.search),
               ),
             ),
           ),
@@ -61,7 +61,7 @@ class _LogDietState extends State<LogDiet> {
               future: _futureData,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else {

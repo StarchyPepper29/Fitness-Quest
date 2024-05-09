@@ -12,7 +12,16 @@
           "package_name": "com.example.fitnessquest_v1"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "69331312356-q7sa8oqhj8v315j6pn8f980lq4dvbuf0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fitnessquest_v1",
+            "certificate_hash": "944942df3d7cf67c68ddd1f9dabd5226e990291f"
+          }
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCfOd1k5OYy9tGpk-pBynlzKcDTM3aIncg"
@@ -20,7 +29,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "69331312356-b1rnc1erfuk74d0k1tvgtu1ed8c2j6o1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "69331312356-4obcaaegnipi86c6citr9ak57gd6t2jp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fitnessquestV1.RunnerTests"
+              }
+            }
+          ]
         }
       }
     }

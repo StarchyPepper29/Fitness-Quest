@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:fitnessquest_v1/components/goals/dietgoals.dart';
 
-class GoalsIndex extends StatefulWidget {
-  const GoalsIndex({Key? key}) : super(key: key);
+class Goals extends StatefulWidget {
+  const Goals({super.key});
 
   @override
-  State<GoalsIndex> createState() => _GoalsIndexState();
+  State<Goals> createState() => _GoalsState();
 }
 
-class _GoalsIndexState extends State<GoalsIndex> {
+class _GoalsState extends State<Goals> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,17 +23,17 @@ class _GoalsIndexState extends State<GoalsIndex> {
               );
             },
             style: ElevatedButton.styleFrom(
-              minimumSize: Size(double.infinity, 50), // Set height here
+              minimumSize: const Size(double.infinity, 50), // Set height here
             ),
-            child: Text('Goals'),
+            child: const Text('Goals'),
           ),
-          SizedBox(height: 20.0),
+          const SizedBox(height: 20.0),
           ElevatedButton(
             onPressed: () {
               //Go to Workout Pages
             },
             style: ElevatedButton.styleFrom(
-              minimumSize: Size(double.infinity, 50), // Set height here
+              minimumSize: const Size(double.infinity, 50), // Set height here
             ),
             child: const Text('Workout Goals'),
           ),

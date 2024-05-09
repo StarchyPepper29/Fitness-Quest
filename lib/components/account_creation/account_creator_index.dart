@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../services/firestore.dart';
 
 class CreatorIndex extends StatefulWidget {
-  const CreatorIndex({Key? key}) : super(key: key);
+  const CreatorIndex({super.key});
 
   @override
   _CreatorIndexState createState() => _CreatorIndexState();
@@ -91,12 +91,12 @@ class Step1 extends StatelessWidget {
   final Function moveToNextStep;
 
   const Step1({
-    Key? key,
+    super.key,
     required this.nameController,
     required this.nickController,
     required this.ageController,
     required this.moveToNextStep,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -135,11 +135,11 @@ class Step2 extends StatelessWidget {
   final Function moveToNextStep;
 
   const Step2({
-    Key? key,
+    super.key,
     required this.weightController,
     required this.heightController,
     required this.moveToNextStep,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -175,11 +175,11 @@ class Step3 extends StatelessWidget {
   final Function moveToNextStep;
 
   const Step3({
-    Key? key,
+    super.key,
     required this.activityLevel,
     required this.setActivityLevel,
     required this.moveToNextStep,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -221,7 +221,7 @@ class Step4 extends StatelessWidget {
   final FirestoreService firestoreService;
 
   const Step4({
-    Key? key,
+    super.key,
     required this.name,
     required this.nick,
     required this.age,
@@ -230,7 +230,7 @@ class Step4 extends StatelessWidget {
     required this.activityLevel,
     required this.resetForm,
     required this.firestoreService,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

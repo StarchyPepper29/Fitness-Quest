@@ -4,6 +4,9 @@ import 'components/account_creation/account_creator_index.dart'; // Import the h
 import 'package:firebase_core/firebase_core.dart';
 import 'screens/goals.dart';
 import 'screens/story.dart';
+import 'screens/home.dart';
+import 'screens/allscreennav.dart';
+import 'screens/authscreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +24,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const GoalsIndex(), // Use the HelloWorldScreen widget as the home
+      routes: {
+        '/': (context) => AllPages(),
+        '/goals': (context) => const Goals(),
+        '/story': (context) => const Story(),
+        '/account': (context) => const CreatorIndex(),
+        '/auth': (context) => GoogleSignInPage(),
+      },
+      initialRoute: '/',
     );
   }
 }

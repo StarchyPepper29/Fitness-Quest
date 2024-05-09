@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage() : super(key: const ObjectKey('HomePage'));
 
   @override
-  State<Home> createState() => _HomeState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _HomeState extends State<Home> {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return (Container(
-      child: Text('Home'),
-    ));
+    return Scaffold(
+      // Use the BottomStackNavigator widget
+      body: Center(
+        child: Text('Home'),
+      ),
+    );
   }
 }

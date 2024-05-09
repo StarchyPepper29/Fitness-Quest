@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../dietlogger/dietlogwidget.dart';
 
 class Diet extends StatefulWidget {
-  const Diet({Key? key}) : super(key: key);
+  const Diet({super.key});
 
   @override
   State<Diet> createState() => _DietState();
@@ -15,7 +15,7 @@ class _DietState extends State<Diet> {
   Future<void> _receiveData(BuildContext context) async {
     final List<String>? result =
         await Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => LogDiet(),
+      builder: (context) => const LogDiet(),
     ));
 
     if (result != null && result.length == 2) {
