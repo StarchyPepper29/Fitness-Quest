@@ -1,19 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '../components/dietlogger/dietlogwidget.dart';
+import '../components/common/bottomNavBar.dart';
+import '../components/dietlogger/foodLog.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage() : super(key: const ObjectKey('HomePage'));
+class HomePage extends StatelessWidget {
+  final User user;
 
-  @override
-  _HomePageState createState() => _HomePageState();
-}
+  const HomePage({Key? key, required this.user}) : super(key: key);
 
-class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Use the BottomStackNavigator widget
+      appBar: AppBar(
+        title: Text('Home'),
+      ),
+      // bottomNavigationBar: BottomNavBar(),
       body: Center(
-        child: Text('Home'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Welcome, ${user.displayName}!', // Display user's display name
+              style: TextStyle(fontSize: 18),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Navigate to LogDiet screen
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Diet()));
+              },
+              child: Text('Log Diet'),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () async {
+                // Sign out the user
+                await FirebaseAuth.instance.signOut();
+              },
+              child: Text('Sign Out'),
+            ),
+          ],
+        ),
       ),
     );
   }

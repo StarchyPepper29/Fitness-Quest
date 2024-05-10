@@ -1,12 +1,8 @@
 import 'package:fitnessquest_v1/firebase_options.dart';
 import 'package:flutter/material.dart';
-import 'components/account_creation/account_creator_index.dart'; // Import the hello_world.dart file
 import 'package:firebase_core/firebase_core.dart';
-import 'screens/goals.dart';
-import 'screens/story.dart';
-import 'screens/home.dart';
-import 'screens/allscreennav.dart';
-import 'screens/authscreen.dart';
+import './initRouteHandler.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,8 +10,21 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  User? user;
+
+  void initState() {
+    super.initState();
+    user = FirebaseAuth.instance.currentUser;
+    print(user?.uid.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +34,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: {
-        '/': (context) => AllPages(),
-        '/goals': (context) => const Goals(),
-        '/story': (context) => const Story(),
-        '/account': (context) => const CreatorIndex(),
-        '/auth': (context) => GoogleSignInPage(),
+        '/': (context) => InitRoute(),
       },
       initialRoute: '/',
     );

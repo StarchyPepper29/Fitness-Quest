@@ -17,17 +17,18 @@ class _LogDietState extends State<LogDiet> {
   void initState() {
     super.initState();
     _searchController = TextEditingController();
-    _futureData = fetchData('Cheddar Cheese');
+    _futureData = Future.value([]);
   }
 
   Future<List<dynamic>> fetchData(String query) async {
     if (query.isEmpty) {
       return [];
     }
-    http.Response response = await http.get(Uri.parse(
-        'https://api.nal.usda.gov/fdc/v1/foods/search?api_key=DEMO_KEY&query=${Uri.encodeQueryComponent(query)}&pageSize=2'));
+    var theQuery =
+        "https://api.edamam.com/api/recipes/v2?type=public&q=${Uri.encodeComponent(query)}&app_id=94eae1d7&app_key=ba328c998104494ab3c083fdb2e6ff91";
+    http.Response response = await http.get(Uri.parse(theQuery));
     if (response.statusCode == 200) {
-      List<dynamic> responseBody = jsonDecode(response.body)['foods'];
+      List<dynamic> responseBody = jsonDecode(response.body)['hits'];
       return responseBody;
     } else {
       throw Exception('Failed to fetch data');
@@ -69,18 +70,16 @@ class _LogDietState extends State<LogDiet> {
                   return ListView.builder(
                     itemCount: foodItems.length,
                     itemBuilder: (BuildContext context, int index) {
-                      int fdcId = foodItems[index]['fdcId'];
-                      int calories = foodItems[index]['foodNutrients']
-                          .firstWhere((element) =>
-                              element['nutrientId'] == 1008)['value']
-                          .round();
-                      String description = foodItems[index]['description'];
+                      String foodName = foodItems[index]['recipe']['label'];
+                      double caloriesDouble = foodItems[index]['recipe']
+                          ['totalDaily']['ENERC_KCAL']['quantity'];
+                      int calories = caloriesDouble.toInt();
                       return ListTile(
-                        title: Text(description),
+                        title: Text(foodName),
                         subtitle: Text('Calories: $calories'),
                         onTap: () {
                           Navigator.of(context)
-                              .pop([calories.toString(), description]);
+                              .pop([calories.toString(), foodName]);
                         },
                       );
                     },
