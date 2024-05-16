@@ -40,6 +40,7 @@ dependencies:
   firebase_core: ^2.25.4
   cloud_firestore: ^4.15.5
   android_alarm_manager_plus: ^4.0.3
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:
