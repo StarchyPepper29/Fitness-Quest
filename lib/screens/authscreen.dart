@@ -21,11 +21,13 @@ Future<UserCredential> signInWithGoogle() async {
 }
 
 class GoogleSignInPage extends StatelessWidget {
+  const GoogleSignInPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Google Sign-In Demo'),
+        title: const Text('Google Sign-In Demo'),
       ),
       body: Center(
         child: ElevatedButton(
@@ -38,7 +40,7 @@ class GoogleSignInPage extends StatelessWidget {
               print('Error signing in: $error');
             });
           },
-          child: Text('Sign in with Google'),
+          child: const Text('Sign in with Google'),
         ),
       ),
     );

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatefulWidget {
+  const BottomNavBar({super.key});
+
   @override
   _BottomNavBarState createState() => _BottomNavBarState();
 }
@@ -9,10 +11,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
-    HomeScreen(),
-    StoryScreen(),
-    ProfileScreen(),
-    GoalsScreen(),
+    const HomeScreen(),
+    const StoryScreen(),
+    const ProfileScreen(),
+    const GoalsScreen(),
   ];
 
   @override
@@ -26,7 +28,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             _currentIndex = index;
           });
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
@@ -50,10 +52,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
 }
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Center(
+      child: const Center(
         child: Text('Home Screen'),
       ),
     );
@@ -61,10 +65,12 @@ class HomeScreen extends StatelessWidget {
 }
 
 class StoryScreen extends StatelessWidget {
+  const StoryScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Center(
+      child: const Center(
         child: Text('Story Screen'),
       ),
     );
@@ -72,10 +78,12 @@ class StoryScreen extends StatelessWidget {
 }
 
 class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Center(
+      child: const Center(
         child: Text('Profile Screen'),
       ),
     );
@@ -83,10 +91,12 @@ class ProfileScreen extends StatelessWidget {
 }
 
 class GoalsScreen extends StatelessWidget {
+  const GoalsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Center(
+      child: const Center(
         child: Text('Goals Screen'),
       ),
     );

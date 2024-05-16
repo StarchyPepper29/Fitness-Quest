@@ -6,7 +6,7 @@ class loginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Column(
         children: [
           Text('Login'),
@@ -18,6 +18,8 @@ class loginScreen extends StatelessWidget {
 }
 
 class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
+
   @override
   _LoginFormState createState() => _LoginFormState();
 }
@@ -35,7 +37,7 @@ class _LoginFormState extends State<LoginForm> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           TextFormField(
-            decoration: InputDecoration(labelText: 'Email'),
+            decoration: const InputDecoration(labelText: 'Email'),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your email';
@@ -46,9 +48,9 @@ class _LoginFormState extends State<LoginForm> {
               _email = value;
             },
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           TextFormField(
-            decoration: InputDecoration(labelText: 'Password'),
+            decoration: const InputDecoration(labelText: 'Password'),
             obscureText: true,
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -60,7 +62,7 @@ class _LoginFormState extends State<LoginForm> {
               _password = value;
             },
           ),
-          SizedBox(height: 32.0),
+          const SizedBox(height: 32.0),
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
@@ -68,7 +70,7 @@ class _LoginFormState extends State<LoginForm> {
                 loginFunction(context, _email, _password);
               }
             },
-            child: Text('Login'),
+            child: const Text('Login'),
           ),
         ],
       ),

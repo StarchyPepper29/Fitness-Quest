@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import './components/auth/logInOrSignUpHandler.dart';
 import './screens/home.dart'; // Import HomePage
+import 'components/account_creation/account_creator_index.dart';
+import './components/auth/accountCheck.dart';
 
 class InitRoute extends StatelessWidget {
+  const InitRoute({Key? key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,14 +20,33 @@ class InitRoute extends StatelessWidget {
           } else {
             final User? user = snapshot.data;
             if (user == null) {
-              return LoginOrSignUp(); // Use loginScreen widget
+              return const LoginOrSignUp(); // Use loginScreen widget
             } else {
-              // User is authenticated
-              return HomePage(user: user); // Use HomePage widget
+              return FutureBuilder<bool?>(
+                future: checkUserExists(user.uid),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  } else {
+                    return HomeOrAccount(user: user);
+                  }
+                },
+              );
             }
           }
         },
       ),
     );
+  }
+
+  Future<bool?> checkUserExists(String userId) async {
+    try {
+      final bool? exists = await userExists(userId);
+      return exists;
+    } catch (error) {
+      // Handle error
+      print('Error checking user existence: $error');
+      return false;
+    }
   }
 }

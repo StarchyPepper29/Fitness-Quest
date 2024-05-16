@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "equipment": "No",
+    "level": "Beginner"
+  },
+  {
+    "id": 2,
+    "equipment": "No",
+    "level": "Intermediate"
+  },
+  {
+    "id": 3,
+    "equipment": "No",
+    "level": "Advanced"
+  },
+  {
+    "id": 4,
+    "equipment": "Yes",
+    "level": "Beginner"
+  },
+  {
+    "id": 5,
+    "equipment": "Yes",
+    "level": "Intermediate"
+  },
+  {
+    "id": 6,
+    "equipment": "Yes",
+    "level": "Advanced"
+  }
+]

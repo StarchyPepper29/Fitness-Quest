@@ -23,55 +23,55 @@ class _AllPagesState extends State<AllPages> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => HomePage()),
+                MaterialPageRoute(builder: (context) => const HomePage()),
               );
             },
-            child: Text('Page 1'),
+            child: const Text('Page 1'),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Goals()),
+                MaterialPageRoute(builder: (context) => const Goals()),
               );
             },
-            child: Text('Page 2'),
+            child: const Text('Page 2'),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile()),
+                MaterialPageRoute(builder: (context) => const Profile()),
               );
             },
-            child: Text('Page 3'),
+            child: const Text('Page 3'),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Story()),
+                MaterialPageRoute(builder: (context) => const Story()),
               );
             },
-            child: Text('Page 4'),
+            child: const Text('Page 4'),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => GoogleSignInPage()),
+                MaterialPageRoute(builder: (context) => const GoogleSignInPage()),
               );
             },
-            child: Text('Page 5'),
+            child: const Text('Page 5'),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => CreatorIndex()),
+                MaterialPageRoute(builder: (context) => const CreatorIndex()),
               );
             },
-            child: Text('Acc'),
+            child: const Text('Acc'),
           )
         ],
       ),

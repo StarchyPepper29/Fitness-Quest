@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import '../../services/firestore.dart';
+import '../auth/accountCheck.dart'; // Import the userExists function
+import 'package:firebase_auth/firebase_auth.dart';
+import '../timer/timeHandler.dart';
 
 class CreatorIndex extends StatefulWidget {
-  const CreatorIndex({super.key});
+  final User user; // Add user parameter to the constructor
 
+  CreatorIndex({Key? key, required this.user}) : super(key: key);
+  final String userId = FirebaseAuth.instance.currentUser!.uid;
   @override
   _CreatorIndexState createState() => _CreatorIndexState();
 }
@@ -16,6 +21,8 @@ class _CreatorIndexState extends State<CreatorIndex> {
   final TextEditingController weightController = TextEditingController();
   final TextEditingController heightController = TextEditingController();
   String activityLevel = 'Moderate';
+  bool needsDumbell = false; // Added attribute
+  String difficulty = 'Beginner'; // Added attribute
   int currentStep = 0;
 
   @override
@@ -41,16 +48,23 @@ class _CreatorIndexState extends State<CreatorIndex> {
                 : currentStep == 2
                     ? Step3(
                         activityLevel: activityLevel,
+                        needsDumbell: needsDumbell,
+                        difficulty: difficulty,
                         setActivityLevel: setActivityLevel,
+                        setNeedsDumbell: setNeedsDumbell,
+                        setDifficulty: setDifficulty,
                         moveToNextStep: moveToNextStep,
                       )
                     : Step4(
+                        userId: widget.userId,
                         name: nameController.text,
                         nick: nickController.text,
                         age: ageController.text,
                         weight: weightController.text,
                         height: heightController.text,
                         activityLevel: activityLevel,
+                        needsDumbell: needsDumbell,
+                        difficulty: difficulty,
                         resetForm: resetForm,
                         firestoreService: firestoreService,
                       ),
@@ -64,7 +78,7 @@ class _CreatorIndexState extends State<CreatorIndex> {
     });
   }
 
-  void resetForm() {
+  void resetForm(BuildContext context) async {
     setState(() {
       nameController.clear();
       nickController.clear();
@@ -72,14 +86,30 @@ class _CreatorIndexState extends State<CreatorIndex> {
       weightController.clear();
       heightController.clear();
       activityLevel = 'Moderate';
+      needsDumbell = false;
+      difficulty = 'Beginner';
       currentStep = 0;
     });
+    TimeHandler().start();
+    Navigator.pushNamed(context, '/');
   }
 
   void setActivityLevel(String? value) {
     setState(() {
       activityLevel =
           value ?? 'Moderately Active'; // Set to default if value is null
+    });
+  }
+
+  void setNeedsDumbell(bool value) {
+    setState(() {
+      needsDumbell = value;
+    });
+  }
+
+  void setDifficulty(String? value) {
+    setState(() {
+      difficulty = value ?? 'Beginner'; // Set to default if value is null
     });
   }
 }
@@ -91,12 +121,12 @@ class Step1 extends StatelessWidget {
   final Function moveToNextStep;
 
   const Step1({
-    super.key,
+    Key? key,
     required this.nameController,
     required this.nickController,
     required this.ageController,
     required this.moveToNextStep,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -135,11 +165,11 @@ class Step2 extends StatelessWidget {
   final Function moveToNextStep;
 
   const Step2({
-    super.key,
+    Key? key,
     required this.weightController,
     required this.heightController,
     required this.moveToNextStep,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -171,15 +201,23 @@ class Step2 extends StatelessWidget {
 
 class Step3 extends StatelessWidget {
   final String activityLevel;
+  final bool needsDumbell;
+  final String difficulty;
   final Function(String?) setActivityLevel;
+  final Function(bool) setNeedsDumbell;
+  final Function(String?) setDifficulty;
   final Function moveToNextStep;
 
   const Step3({
-    super.key,
+    Key? key,
     required this.activityLevel,
+    required this.needsDumbell,
+    required this.difficulty,
     required this.setActivityLevel,
+    required this.setNeedsDumbell,
+    required this.setDifficulty,
     required this.moveToNextStep,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -188,10 +226,40 @@ class Step3 extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          DropdownButton<String>(
+          DropdownButtonFormField<String>(
             value: activityLevel,
-            onChanged: (value) => setActivityLevel(value),
+            onChanged: setActivityLevel,
+            decoration: InputDecoration(
+              labelText: 'Select Activity Level',
+              border: OutlineInputBorder(),
+            ),
             items: <String>['Sedentary', 'Moderate', 'Active', 'Very Active']
+                .map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
+          const SizedBox(height: 20),
+          Row(
+            children: [
+              Text('Needs Dumbell: '),
+              Switch(
+                value: needsDumbell,
+                onChanged: setNeedsDumbell,
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          DropdownButtonFormField<String>(
+            value: difficulty,
+            onChanged: setDifficulty,
+            decoration: InputDecoration(
+              labelText: 'Select Difficulty',
+              border: OutlineInputBorder(),
+            ),
+            items: <String>['Beginner', 'Intermediate', 'Advanced']
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
@@ -211,26 +279,32 @@ class Step3 extends StatelessWidget {
 }
 
 class Step4 extends StatelessWidget {
+  final String userId;
   final String name;
   final String nick;
   final String age;
   final String weight;
   final String height;
   final String activityLevel;
+  final bool needsDumbell;
+  final String difficulty;
   final Function resetForm;
   final FirestoreService firestoreService;
 
   const Step4({
-    super.key,
+    Key? key,
+    required this.userId,
     required this.name,
     required this.nick,
     required this.age,
     required this.weight,
     required this.height,
     required this.activityLevel,
+    required this.needsDumbell,
+    required this.difficulty,
     required this.resetForm,
     required this.firestoreService,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -245,14 +319,26 @@ class Step4 extends StatelessWidget {
           Text('Weight: $weight'),
           Text('Height: $height'),
           Text('Activity Level: $activityLevel'),
+          Text('Needs Dumbell: $needsDumbell'),
+          Text('Difficulty: $difficulty'),
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
               firestoreService
-                  .addUser(name, nick, age, weight, height, activityLevel)
+                  .addUser(
+                userId,
+                name,
+                nick,
+                age,
+                weight,
+                height,
+                activityLevel,
+                needsDumbell,
+                difficulty,
+              )
                   .then((_) {
                 // User added successfully, you can perform any additional actions here
-                resetForm();
+                resetForm(context);
               }).catchError((error) {
                 // Handle error
                 print('Failed to add user: $error');

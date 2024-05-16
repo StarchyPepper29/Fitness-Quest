@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import './dietlogwidget.dart';
 
 class Diet extends StatefulWidget {
-  const Diet({Key? key});
+  const Diet({super.key, Key? customKey});
 
   @override
   State<Diet> createState() => _DietState();
@@ -46,7 +46,7 @@ class _DietState extends State<Diet> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       'Total Calories Left for Today',
                       style: TextStyle(
                         color: Colors.white,
@@ -55,7 +55,7 @@ class _DietState extends State<Diet> {
                     ),
                     Text(
                       totalCaloriesPrintable,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 24,
                       ),
@@ -134,14 +134,15 @@ class _DietState extends State<Diet> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       'Log Diet',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 24,
                       ),
                     ),
-                    ElevatedButton(onPressed: () {}, child: Text('Log Diet'))
+                    ElevatedButton(
+                        onPressed: () {}, child: const Text('Log Diet'))
                   ],
                 ),
                 // Your other rows...

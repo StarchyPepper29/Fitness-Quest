@@ -3,9 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Column(
         children: [
           Text('Sign Up'),
@@ -18,6 +20,8 @@ class SignUpScreen extends StatelessWidget {
 }
 
 class RegisterForm extends StatefulWidget {
+  const RegisterForm({super.key});
+
   @override
   _RegisterFormState createState() => _RegisterFormState();
 }
@@ -36,7 +40,7 @@ class _RegisterFormState extends State<RegisterForm> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           TextFormField(
-            decoration: InputDecoration(labelText: 'Email'),
+            decoration: const InputDecoration(labelText: 'Email'),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your email';
@@ -47,9 +51,9 @@ class _RegisterFormState extends State<RegisterForm> {
               _email = value;
             },
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           TextFormField(
-            decoration: InputDecoration(labelText: 'Password'),
+            decoration: const InputDecoration(labelText: 'Password'),
             obscureText: true,
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -61,9 +65,9 @@ class _RegisterFormState extends State<RegisterForm> {
               _password = value;
             },
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           TextFormField(
-            decoration: InputDecoration(labelText: 'Name'),
+            decoration: const InputDecoration(labelText: 'Name'),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your name';
@@ -74,14 +78,14 @@ class _RegisterFormState extends State<RegisterForm> {
               _name = value;
             },
           ),
-          SizedBox(height: 32.0),
+          const SizedBox(height: 32.0),
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 signUpFunction(_email, _password, _name);
               }
             },
-            child: Text('Register'),
+            child: const Text('Register'),
           ),
         ],
       ),
@@ -90,6 +94,8 @@ class _RegisterFormState extends State<RegisterForm> {
 }
 
 class GoogleSignInButton extends StatelessWidget {
+  const GoogleSignInButton({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -104,7 +110,7 @@ class GoogleSignInButton extends StatelessWidget {
                 // Handle sign-in errors
               });
             },
-            child: Text('Sign in with Google'),
+            child: const Text('Sign in with Google'),
           ),
         ],
       ),
@@ -150,6 +156,6 @@ Future<UserCredential> signInWithGoogle() async {
 
     return await FirebaseAuth.instance.signInWithCredential(credential);
   } catch (error) {
-    throw error;
+    rethrow;
   }
 }

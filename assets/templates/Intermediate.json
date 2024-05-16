@@ -1,0 +1,194 @@
+{
+  "Day_1": {
+    "exercises": [
+      {
+        "name": "Jumping Jacks",
+        "instructions": "Start with feet together, jump while spreading legs and raising arms overhead, then return to starting position.",
+        "sets": "2 x 22",
+        "rest_period": "Rest 30 seconds"
+      },
+      {
+        "name": "Arm Circles",
+        "instructions": "Stand with arms extended to the sides, make circular motions with arms in a forward direction, then switch to backward circles.",
+        "sets": "2 x 25 sec",
+        "rest_period": "Rest 20 seconds"
+      },
+      {
+        "name": "Leg Swings",
+        "instructions": "Hold onto a stable surface, swing one leg forward and backward in a controlled motion, then switch to the other leg.",
+        "sets": "2 x 25 sec",
+        "rest_period": "Rest 20 seconds"
+      },
+      {
+        "name": "Push-ups",
+        "instructions": "Assume a plank position with hands shoulder-width apart, lower body until elbows are at 90 degrees, then push back up to starting position.",
+        "sets": "3 x 10",
+        "rest_period": "Rest 30 seconds"
+      },
+      {
+        "name": "Bodyweight Rows",
+        "instructions": "Find a sturdy horizontal bar at waist height, hang underneath with arms extended, pull body up until chest touches bar, then lower back down.",
+        "sets": "4 x 8",
+        "rest_period": "Rest 30 seconds"
+      },
+      {
+        "name": "Pike Push-ups",
+        "instructions": "Assume a downward dog position with hands and feet on the ground, bend elbows and lower head towards ground, then push back up to starting position.",
+        "sets": "3 x 8",
+        "rest_period": "Rest 30 seconds"
+      },
+      {
+        "name": "Plank",
+        "instructions": "Assume a push-up position with body straight from head to heels, hold this position, engaging core muscles.",
+        "sets": "2 x 30 sec",
+        "rest_period": "Rest 30 seconds"
+      },
+      {
+        "name": "Chest Stretch",
+        "instructions": "Stand with one arm extended against a wall or doorway, rotate body away from arm until a stretch is felt in the chest, hold for 30-40 seconds, then switch arms.",
+        "sets": "2 x 25 sec",
+        "rest_period": "Rest 20 seconds"
+      },
+      {
+        "name": "Triceps Stretch",
+        "instructions": "Extend one arm overhead, bend elbow and reach hand down the center of the back, gently press elbow with other hand, hold for 30-40 seconds, then switch arms.",
+        "sets": "2 x 25 sec",
+        "rest_period": "Rest 20 seconds"
+      },
+      {
+        "name": "Shoulder Stretch",
+        "instructions": "Bring one arm across the body, hook the other arm under and pull towards chest until a stretch is felt in the shoulder, hold for 30-40 seconds, then switch arms.",
+        "sets": "2 x 25 sec",
+        "rest_period": "Rest 20 seconds"
+      }
+    ]
+  },
+  "Day_2": {
+    "exercises": [
+      {
+        "name": "Jumping Jacks",
+        "instructions": "Start with feet together, jump while spreading legs and raising arms overhead, then return to starting position.",
+        "sets": "2 x 22",
+        "rest_period": "Rest 30 seconds"
+      },
+      {
+        "name": "Arm Circles",
+        "instructions": "Stand with arms extended to the sides, make circular motions with arms in a forward direction, then switch to backward circles.",
+        "sets": "2 x 25 sec",
+        "rest_period": "Rest 20 seconds"
+      },
+      {
+        "name": "Leg Swings",
+        "instructions": "Hold onto a stable surface, swing one leg forward and backward in a controlled motion, then switch to the other leg.",
+        "sets": "2 x 25 sec",
+        "rest_period": "Rest 20 seconds"
+      },
+      {
+        "name": "Squats",
+        "instructions": "Stand with feet shoulder-width apart, lower body as if sitting back into a chair, keeping knees behind toes, then return to standing position.",
+        "sets": "3 x 10",
+        "rest_period": "Rest 30 seconds"
+      },
+      {
+        "name": "Lunges",
+        "instructions": "Take a step forward with one leg, lower body until both knees are bent at 90-degree angles, then return to standing position and switch legs.",
+        "sets": "3 x 12",
+        "rest_period": "Rest 30 seconds"
+      },
+      {
+        "name": "Calf Raises",
+        "instructions": "Stand with feet hip-width apart, rise onto toes by lifting heels as high as possible, then lower heels back down.",
+        "sets": "3 x 11",
+        "rest_period": "Rest 30 seconds"
+      },
+      {
+        "name": "Bodyweight Deadlifts",
+        "instructions": "Stand with feet shoulder-width apart, hinge at hips to lower torso while keeping back straight, then return to standing position.",
+        "sets": "3 x 12",
+        "rest_period": "Rest 30 seconds"
+      },
+      {
+        "name": "Hamstring Stretch",
+        "instructions": "Sit on the ground with one leg extended and the other bent, lean forward from the hips until you feel a stretch in the back of the extended leg, hold for 30-40 seconds, then switch legs.",
+        "sets": "2 x 20 sec",
+        "rest_period": "Rest 20 seconds"
+      },
+      {
+        "name": "Quadriceps Stretch",
+        "instructions": "Stand upright, bend one knee and bring your foot towards your buttocks, grasp your ankle with your hand and gently pull your heel towards your buttocks until you feel a stretch in the front of your thigh, hold for 30-40 seconds, then switch legs.",
+        "sets": "2 x 20 sec",
+        "rest_period": "Rest 20 seconds"
+      },
+      {
+        "name": "Calf Stretch",
+        "instructions": "Stand facing a wall with hands on the wall at shoulder height, place one foot behind you with heel on the ground, bend front knee until a stretch is felt in the calf, hold for 30-40 seconds, then switch legs.",
+        "sets": "2 x 20 sec",
+        "rest_period": "Rest 20 seconds"
+      }
+    ]
+  },
+  "Day_3": {
+    "exercises": [
+      {
+        "name": "Jumping Jacks",
+        "instructions": "Start with feet together, jump while spreading legs and raising arms overhead, then return to starting position.",
+        "sets": "2 x 22",
+        "rest_period": "Rest 30 seconds"
+      },
+      {
+        "name": "Arm Circles",
+        "instructions": "Stand with arms extended to the sides, make circular motions with arms in a forward direction, then switch to backward circles.",
+        "sets": "2 x 25 sec",
+        "rest_period": "Rest 20 seconds"
+      },
+      {
+        "name": "Leg Swings",
+        "instructions": "Hold onto a stable surface, swing one leg forward and backward in a controlled motion, then switch to the other leg.",
+        "sets": "2 x 25 sec",
+        "rest_period": "Rest 20 seconds"
+      },
+      {
+        "name": "Burpees",
+        "instructions": "Begin in a standing position, drop into a squat position with hands on the ground, kick feet back into a plank position, do a push-up, then jump back to the squat position and jump up with arms overhead.",
+        "sets": "3 x 10",
+        "rest_period": "Rest 30 seconds"
+      },
+      {
+        "name": "Russian Twists",
+        "instructions": "Sit on the ground with knees bent, lean back slightly and lift feet off the ground, clasp hands together and twist torso from side to side, touching hands to the ground on each side.",
+        "sets": "3 x 12",
+        "rest_period": "Rest 30 seconds"
+      },
+      {
+        "name": "Mountain Climbers",
+        "instructions": "Begin in a push-up position, alternate bringing knees towards chest in a running motion while keeping back flat.",
+        "sets": "3 x 12",
+        "rest_period": "Rest 30 seconds"
+      },
+      {
+        "name": "Bicycle Crunches",
+        "instructions": "Lie on your back with hands behind your head, lift shoulders off the ground, bring one knee towards the opposite elbow while extending the other leg straight, alternate sides in a pedaling motion.",
+        "sets": "3 x 10",
+        "rest_period": "Rest 30 seconds"
+      },
+      {
+        "name": "Chest Stretch",
+        "instructions": "Stand with feet shoulder-width apart, clasp hands behind your back, straighten arms and lift them slightly while squeezing shoulder blades together, hold for 30-40 seconds.",
+        "sets": "2 x 20 sec",
+        "rest_period": "Rest 20 seconds"
+      },
+      {
+        "name": "Triceps Stretch",
+        "instructions": "Extend one arm overhead, bend elbow and reach hand down the center of the back, gently press elbow with other hand, hold for 30-40 seconds, then switch arms.",
+        "sets": "2 x 20 sec",
+        "rest_period": "Rest 20 seconds"
+      },
+      {
+        "name": "Seated Forward Bend",
+        "instructions": "Sit on the ground with legs extended in front, hinge at hips to lean forward and reach towards toes, keeping back straight, hold for 30-40 seconds.",
+        "sets": "2 x 20 sec",
+        "rest_period": "Rest 20 seconds"
+      }
+    ]
+  }
+}

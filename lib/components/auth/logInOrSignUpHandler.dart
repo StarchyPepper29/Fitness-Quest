@@ -3,6 +3,8 @@ import './loginScreen.dart';
 import './signupScreen.dart';
 
 class LoginOrSignUp extends StatefulWidget {
+  const LoginOrSignUp({super.key});
+
   @override
   _LoginOrSignUpState createState() => _LoginOrSignUpState();
 }
@@ -24,7 +26,7 @@ class _LoginOrSignUpState extends State<LoginOrSignUp> {
                   isSignUp = false;
                 });
               },
-              child: Text('Login'),
+              child: const Text('Login'),
             ),
             ElevatedButton(
               onPressed: () {
@@ -33,10 +35,10 @@ class _LoginOrSignUpState extends State<LoginOrSignUp> {
                   isSignUp = true;
                 });
               },
-              child: Text('Sign Up'),
+              child: const Text('Sign Up'),
             ),
-            if (isLogin) loginScreen(),
-            if (isSignUp) SignUpScreen(),
+            if (isLogin) const loginScreen(),
+            if (isSignUp) const SignUpScreen(),
           ],
         ),
       ),
