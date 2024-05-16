@@ -73,13 +73,14 @@ class _LogDietState extends State<LogDiet> {
                       String foodName = foodItems[index]['recipe']['label'];
                       double caloriesDouble = foodItems[index]['recipe']
                           ['totalDaily']['ENERC_KCAL']['quantity'];
+                      String recipeUri = foodItems[index]['recipe']['uri'];
                       int calories = caloriesDouble.toInt();
                       return ListTile(
                         title: Text(foodName),
                         subtitle: Text('Calories: $calories'),
                         onTap: () {
                           Navigator.of(context)
-                              .pop([calories.toString(), foodName]);
+                              .pop([calories.toString(), foodName, recipeUri]);
                         },
                       );
                     },

@@ -1,8 +1,14 @@
+import 'package:fitnessquest_v1/services/firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../services/firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import './dietlogwidget.dart';
 
 class Diet extends StatefulWidget {
-  const Diet({super.key, Key? customKey});
+  final User user;
+
+  const Diet(this.user, {Key? key}) : super(key: key);
 
   @override
   State<Diet> createState() => _DietState();
@@ -10,9 +16,49 @@ class Diet extends StatefulWidget {
 
 class _DietState extends State<Diet> {
   int totalCalories = 2000;
+  String recipeUri = '';
   String totalCaloriesPrintable = '2000';
   int ConsumedCalories = 0;
-  final List<List<String>> _data = [];
+  List<List<String>> _data = [];
+  final List<String> _foodLog = [];
+
+  void initState() {
+    super.initState();
+    fetchFoods();
+  }
+
+  void fetchFoods() async {
+    try {
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      print('Fetching Food for ${widget.user.uid}');
+      QuerySnapshot querySnapshot = await firestore
+          .collection('foodLogs')
+          .where('userId', isEqualTo: widget.user.uid)
+          .limit(1)
+          .get();
+
+      // Check if the snapshot exists and contains data
+      if (querySnapshot.docs.isNotEmpty) {
+        print('Logged food found');
+        Map<String, dynamic>? loggedFood =
+            querySnapshot.docs.first.data() as Map<String, dynamic>?;
+
+        // Checking if loggedFood is not null
+        if (loggedFood != null) {
+          setState(() {
+            // Assuming _checkedExerciseNames is a List<String> in your state
+            _data = loggedFood['food'] as List<List<String>>;
+          });
+        } else {
+          print('Checked workouts data is null');
+        }
+      } else {
+        print('No checked workouts found');
+      }
+    } catch (e) {
+      print('Error fetching checked workouts: $e');
+    }
+  }
 
   Future<void> _receiveData(BuildContext context) async {
     final List<String>? result = await Navigator.of(context).push(
@@ -21,7 +67,7 @@ class _DietState extends State<Diet> {
       ),
     );
 
-    if (result != null && result.length == 2) {
+    if (result != null && result.length == 3) {
       print(totalCalories);
       setState(() {
         _data.add(result);
@@ -30,6 +76,14 @@ class _DietState extends State<Diet> {
         totalCaloriesPrintable = totalCalories.toString();
       });
     }
+  }
+
+  void submitFoodLog(List<List<String>> data) {
+    for (int i = 0; i < data.length; i++) {
+      _foodLog.add(data[i][0]);
+    }
+    FirestoreService().addFoodLog(widget.user.uid, _foodLog);
+    _foodLog.clear();
   }
 
   @override
@@ -142,7 +196,10 @@ class _DietState extends State<Diet> {
                       ),
                     ),
                     ElevatedButton(
-                        onPressed: () {}, child: const Text('Log Diet'))
+                        onPressed: () {
+                          submitFoodLog(_data);
+                        },
+                        child: const Text('Log Diet'))
                   ],
                 ),
                 // Your other rows...

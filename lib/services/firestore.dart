@@ -5,6 +5,8 @@ class FirestoreService {
       FirebaseFirestore.instance.collection('users');
   final CollectionReference checkedWorkouts =
       FirebaseFirestore.instance.collection('checkedWorkouts');
+  final CollectionReference foodLogs =
+      FirebaseFirestore.instance.collection('foodLogs');
 
   Future<void> addCheckedWorkout(
     String userId,
@@ -13,6 +15,13 @@ class FirestoreService {
     return checkedWorkouts.add({
       'userId': userId,
       'workoutName': workoutName,
+    });
+  }
+
+  Future<void> addFoodLog(String userId, List<String> foodLog) {
+    return foodLogs.add({
+      'userId': userId,
+      'foodLog': foodLog,
     });
   }
 

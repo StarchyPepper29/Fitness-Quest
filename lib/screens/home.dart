@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 // Navigate to LogDiet screen
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Diet()));
+                    MaterialPageRoute(builder: (context) => Diet(user)));
               },
               child: const Text('Log Diet'),
             ),
