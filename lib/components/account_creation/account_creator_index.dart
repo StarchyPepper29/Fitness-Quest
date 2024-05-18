@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import '../../services/firestore.dart';
-import '../auth/accountCheck.dart'; // Import the userExists function
+// Import the userExists function
 import 'package:firebase_auth/firebase_auth.dart';
 import '../timer/timeHandler.dart';
 
 class CreatorIndex extends StatefulWidget {
   final User user; // Add user parameter to the constructor
 
-  CreatorIndex({Key? key, required this.user}) : super(key: key);
+  CreatorIndex({super.key, required this.user});
   final String userId = FirebaseAuth.instance.currentUser!.uid;
   @override
   _CreatorIndexState createState() => _CreatorIndexState();
@@ -90,7 +90,7 @@ class _CreatorIndexState extends State<CreatorIndex> {
       difficulty = 'Beginner';
       currentStep = 0;
     });
-    TimeHandler().start();
+    // TimeHandler(user).start();
     Navigator.pushNamed(context, '/');
   }
 
@@ -121,12 +121,12 @@ class Step1 extends StatelessWidget {
   final Function moveToNextStep;
 
   const Step1({
-    Key? key,
+    super.key,
     required this.nameController,
     required this.nickController,
     required this.ageController,
     required this.moveToNextStep,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -165,11 +165,11 @@ class Step2 extends StatelessWidget {
   final Function moveToNextStep;
 
   const Step2({
-    Key? key,
+    super.key,
     required this.weightController,
     required this.heightController,
     required this.moveToNextStep,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -209,7 +209,7 @@ class Step3 extends StatelessWidget {
   final Function moveToNextStep;
 
   const Step3({
-    Key? key,
+    super.key,
     required this.activityLevel,
     required this.needsDumbell,
     required this.difficulty,
@@ -217,7 +217,7 @@ class Step3 extends StatelessWidget {
     required this.setNeedsDumbell,
     required this.setDifficulty,
     required this.moveToNextStep,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -229,7 +229,7 @@ class Step3 extends StatelessWidget {
           DropdownButtonFormField<String>(
             value: activityLevel,
             onChanged: setActivityLevel,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Select Activity Level',
               border: OutlineInputBorder(),
             ),
@@ -244,7 +244,7 @@ class Step3 extends StatelessWidget {
           const SizedBox(height: 20),
           Row(
             children: [
-              Text('Needs Dumbell: '),
+              const Text('Needs Dumbell: '),
               Switch(
                 value: needsDumbell,
                 onChanged: setNeedsDumbell,
@@ -255,7 +255,7 @@ class Step3 extends StatelessWidget {
           DropdownButtonFormField<String>(
             value: difficulty,
             onChanged: setDifficulty,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Select Difficulty',
               border: OutlineInputBorder(),
             ),
@@ -292,7 +292,7 @@ class Step4 extends StatelessWidget {
   final FirestoreService firestoreService;
 
   const Step4({
-    Key? key,
+    super.key,
     required this.userId,
     required this.name,
     required this.nick,
@@ -304,7 +304,7 @@ class Step4 extends StatelessWidget {
     required this.difficulty,
     required this.resetForm,
     required this.firestoreService,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

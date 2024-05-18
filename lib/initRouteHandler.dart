@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import './components/auth/logInOrSignUpHandler.dart';
-import './screens/home.dart'; // Import HomePage
-import 'components/account_creation/account_creator_index.dart';
+// Import HomePage
 import './components/auth/accountCheck.dart';
 
 class InitRoute extends StatelessWidget {
-  const InitRoute({Key? key});
+  const InitRoute({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +40,7 @@ class InitRoute extends StatelessWidget {
 
   Future<bool?> checkUserExists(String userId) async {
     try {
-      final bool? exists = await userExists(userId);
+      final bool exists = await userExists(userId);
       return exists;
     } catch (error) {
       // Handle error

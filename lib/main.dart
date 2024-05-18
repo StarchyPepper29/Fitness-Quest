@@ -8,28 +8,25 @@ import 'package:firebase_auth/firebase_auth.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  User? user = FirebaseAuth.instance.currentUser;
+
+  // Ensuring the user is correctly initialized and TimeHandler is started
+  if (user != null) {
+    // final timeHandler = TimeHandler(user);
+    // timeHandler.start();
+  } else {
+    debugPrint('No user is currently signed in.');
+  }
+
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  User? user;
-
-  @override
-  void initState() {
-    super.initState();
-    user = FirebaseAuth.instance.currentUser;
-  }
-
-  @override
   Widget build(BuildContext context) {
-    TimeHandler().start();
     return MaterialApp(
       title: 'My App',
       theme: ThemeData(

@@ -18,10 +18,15 @@ class FirestoreService {
     });
   }
 
-  Future<void> addFoodLog(String userId, List<String> foodLog) {
-    return foodLogs.add({
+  Future<void> addFoodLog(
+    String userId,
+    List<Map<String, dynamic>> foodLog,
+    int consumedCalories,
+  ) async {
+    return foodLogs.doc(userId).set({
       'userId': userId,
       'foodLog': foodLog,
+      'consumedCalories': consumedCalories,
     });
   }
 

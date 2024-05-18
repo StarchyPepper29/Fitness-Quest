@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,7 +9,7 @@ class ExerciseScreen extends StatefulWidget {
   final int day;
   final User user;
 
-  const ExerciseScreen(this.day, this.user, {Key? key}) : super(key: key);
+  const ExerciseScreen(this.day, this.user, {super.key});
 
   @override
   _ExerciseScreenState createState() => _ExerciseScreenState();
@@ -214,7 +213,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
               ),
             ElevatedButton(
               onPressed: submitSelectedExercises,
-              child: Text('Submit'),
+              child: const Text('Submit'),
             ),
           ],
         ),

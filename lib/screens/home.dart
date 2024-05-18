@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../components/dietlogger/foodLog.dart';
 import 'package:fitnessquest_v1/components/IbrahimsStuff/lib/exercise.dart';
 import '../components/timer/timeHandler.dart';
-import '../components/timer/resetDietandWorkouts.dart';
 
 class HomePage extends StatelessWidget {
   final User user;
@@ -12,7 +11,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int day = TimeHandler().day;
+    // int day = TimeHandler(user).day;
+    int day = 1;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),

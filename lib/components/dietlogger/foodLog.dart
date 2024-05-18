@@ -1,14 +1,13 @@
 import 'package:fitnessquest_v1/services/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../services/firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import './dietlogwidget.dart';
 
 class Diet extends StatefulWidget {
   final User user;
 
-  const Diet(this.user, {Key? key}) : super(key: key);
+  const Diet(this.user, {super.key});
 
   @override
   State<Diet> createState() => _DietState();
@@ -18,10 +17,11 @@ class _DietState extends State<Diet> {
   int totalCalories = 2000;
   String recipeUri = '';
   String totalCaloriesPrintable = '2000';
-  int ConsumedCalories = 0;
+  int consumedCalories = 0;
   List<List<String>> _data = [];
-  final List<String> _foodLog = [];
+  final List<Map<String, dynamic>> _foodLog = [];
 
+  @override
   void initState() {
     super.initState();
     fetchFoods();
@@ -37,26 +37,34 @@ class _DietState extends State<Diet> {
           .limit(1)
           .get();
 
-      // Check if the snapshot exists and contains data
       if (querySnapshot.docs.isNotEmpty) {
         print('Logged food found');
-        Map<String, dynamic>? loggedFood =
-            querySnapshot.docs.first.data() as Map<String, dynamic>?;
+        Map<String, dynamic> loggedFood =
+            querySnapshot.docs.first.data() as Map<String, dynamic>;
 
-        // Checking if loggedFood is not null
         if (loggedFood != null) {
           setState(() {
-            // Assuming _checkedExerciseNames is a List<String> in your state
-            _data = loggedFood['food'] as List<List<String>>;
+            _data = (loggedFood['foodLog'] as List<dynamic>).map((item) {
+              Map<String, dynamic> foodItem = item as Map<String, dynamic>;
+              return [
+                foodItem['calories'].toString(),
+                foodItem['uri'] as String,
+                foodItem['name'] as String
+              ];
+            }).toList();
+
+            consumedCalories = loggedFood['consumedCalories'] ?? 0;
+            totalCalories -= consumedCalories;
+            totalCaloriesPrintable = totalCalories.toString();
           });
         } else {
-          print('Checked workouts data is null');
+          print('Logged food data is null');
         }
       } else {
-        print('No checked workouts found');
+        print('No logged food found');
       }
     } catch (e) {
-      print('Error fetching checked workouts: $e');
+      print('Error fetching food: $e');
     }
   }
 
@@ -68,22 +76,26 @@ class _DietState extends State<Diet> {
     );
 
     if (result != null && result.length == 3) {
-      print(totalCalories);
       setState(() {
         _data.add(result);
-        ConsumedCalories += int.parse(result[0]);
-        totalCalories -= ConsumedCalories;
+        consumedCalories += int.parse(result[0]);
+        totalCalories -= int.parse(result[0]);
         totalCaloriesPrintable = totalCalories.toString();
       });
     }
   }
 
   void submitFoodLog(List<List<String>> data) {
-    for (int i = 0; i < data.length; i++) {
-      _foodLog.add(data[i][0]);
-    }
-    FirestoreService().addFoodLog(widget.user.uid, _foodLog);
     _foodLog.clear();
+    for (var foodItem in data) {
+      _foodLog.add({
+        'name': foodItem[2],
+        'uri': foodItem[1],
+        'calories': int.parse(foodItem[0]),
+      });
+    }
+    FirestoreService().addFoodLog(widget.user.uid, _foodLog, consumedCalories);
+    Navigator.pop(context);
   }
 
   @override
@@ -116,7 +128,6 @@ class _DietState extends State<Diet> {
                     ),
                   ],
                 ),
-                // Your other rows...
               ],
             ),
           ),
@@ -145,10 +156,6 @@ class _DietState extends State<Diet> {
                 ),
                 Column(
                   children: _data.map((food) {
-                    // int foodInt = int.parse(food[0]);
-                    // totalCalories -= foodInt;
-                    // print(totalCalories);
-                    // print(ConsumedCalories);
                     return Container(
                       margin: const EdgeInsets.symmetric(vertical: 5),
                       padding: const EdgeInsets.all(10),
@@ -156,21 +163,33 @@ class _DietState extends State<Diet> {
                       child: Row(
                         children: [
                           Expanded(
-                            child: Text(
-                              food[0],
-                              style: const TextStyle(
-                                color: Color.fromARGB(255, 37, 40, 197),
-                                fontSize: 18,
-                              ),
-                            ), // Description
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  food[2],
+                                  style: const TextStyle(
+                                    color: Color.fromARGB(255, 37, 40, 197),
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                Text(
+                                  food[1],
+                                  style: const TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           Text(
-                            food[1],
+                            food[0],
                             style: const TextStyle(
                               color: Colors.black,
                               fontSize: 18,
                             ),
-                          ), // Calories
+                          ),
                         ],
                       ),
                     );
@@ -196,13 +215,13 @@ class _DietState extends State<Diet> {
                       ),
                     ),
                     ElevatedButton(
-                        onPressed: () {
-                          submitFoodLog(_data);
-                        },
-                        child: const Text('Log Diet'))
+                      onPressed: () {
+                        submitFoodLog(_data);
+                      },
+                      child: const Text('Log Diet'),
+                    ),
                   ],
                 ),
-                // Your other rows...
               ],
             ),
           ),

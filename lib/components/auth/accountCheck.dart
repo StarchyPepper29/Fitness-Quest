@@ -7,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class HomeOrAccount extends StatelessWidget {
   final User user;
 
-  const HomeOrAccount({Key? key, required this.user}) : super(key: key);
+  const HomeOrAccount({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
