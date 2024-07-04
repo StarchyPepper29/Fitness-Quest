@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../services/firestore.dart';
-// Import the userExists function
 import 'package:firebase_auth/firebase_auth.dart';
-import '../timer/timeHandler.dart';
+
+import '../dietlogger/caloricCalc.dart';
 
 class CreatorIndex extends StatefulWidget {
-  final User user; // Add user parameter to the constructor
+  final User user;
 
   CreatorIndex({super.key, required this.user});
   final String userId = FirebaseAuth.instance.currentUser!.uid;
@@ -21,9 +21,12 @@ class _CreatorIndexState extends State<CreatorIndex> {
   final TextEditingController weightController = TextEditingController();
   final TextEditingController heightController = TextEditingController();
   String activityLevel = 'Moderate';
-  bool needsDumbell = false; // Added attribute
-  String difficulty = 'Beginner'; // Added attribute
+  bool needsDumbell = false;
+  String difficulty = 'Beginner';
+  String gender = 'Male';
+  String goal = 'Maintain weight';
   int currentStep = 0;
+  String errorMessage = '';
 
   @override
   Widget build(BuildContext context) {
@@ -37,23 +40,30 @@ class _CreatorIndexState extends State<CreatorIndex> {
                 nameController: nameController,
                 nickController: nickController,
                 ageController: ageController,
+                gender: gender,
+                setGender: setGender,
                 moveToNextStep: moveToNextStep,
+                errorMessage: errorMessage,
               )
             : currentStep == 1
                 ? Step2(
                     weightController: weightController,
                     heightController: heightController,
                     moveToNextStep: moveToNextStep,
+                    errorMessage: errorMessage,
                   )
                 : currentStep == 2
                     ? Step3(
                         activityLevel: activityLevel,
                         needsDumbell: needsDumbell,
                         difficulty: difficulty,
+                        goal: goal,
                         setActivityLevel: setActivityLevel,
                         setNeedsDumbell: setNeedsDumbell,
                         setDifficulty: setDifficulty,
+                        setGoal: setGoal,
                         moveToNextStep: moveToNextStep,
+                        errorMessage: errorMessage,
                       )
                     : Step4(
                         userId: widget.userId,
@@ -65,6 +75,8 @@ class _CreatorIndexState extends State<CreatorIndex> {
                         activityLevel: activityLevel,
                         needsDumbell: needsDumbell,
                         difficulty: difficulty,
+                        gender: gender,
+                        goal: goal,
                         resetForm: resetForm,
                         firestoreService: firestoreService,
                       ),
@@ -74,8 +86,44 @@ class _CreatorIndexState extends State<CreatorIndex> {
 
   void moveToNextStep() {
     setState(() {
+      errorMessage = '';
+    });
+
+    if (currentStep == 0 && !validateStep1()) {
+      setState(() {
+        errorMessage = 'Please fill out all fields in Step 1';
+      });
+      return;
+    } else if (currentStep == 1 && !validateStep2()) {
+      setState(() {
+        errorMessage = 'Please fill out all fields in Step 2';
+      });
+      return;
+    } else if (currentStep == 2 && !validateStep3()) {
+      setState(() {
+        errorMessage = 'Please fill out all fields in Step 3';
+      });
+      return;
+    }
+
+    setState(() {
       currentStep += 1;
     });
+  }
+
+  bool validateStep1() {
+    return nameController.text.isNotEmpty &&
+        nickController.text.isNotEmpty &&
+        ageController.text.isNotEmpty &&
+        gender.isNotEmpty;
+  }
+
+  bool validateStep2() {
+    return weightController.text.isNotEmpty && heightController.text.isNotEmpty;
+  }
+
+  bool validateStep3() {
+    return activityLevel.isNotEmpty && difficulty.isNotEmpty && goal.isNotEmpty;
   }
 
   void resetForm(BuildContext context) async {
@@ -88,16 +136,17 @@ class _CreatorIndexState extends State<CreatorIndex> {
       activityLevel = 'Moderate';
       needsDumbell = false;
       difficulty = 'Beginner';
+      gender = 'Male';
+      goal = 'Maintain weight';
       currentStep = 0;
+      errorMessage = '';
     });
-    // TimeHandler(user).start();
-    Navigator.pushNamed(context, '/');
+    // Navigator.of(context).pop();
   }
 
   void setActivityLevel(String? value) {
     setState(() {
-      activityLevel =
-          value ?? 'Moderately Active'; // Set to default if value is null
+      activityLevel = value ?? 'Moderately Active';
     });
   }
 
@@ -109,7 +158,19 @@ class _CreatorIndexState extends State<CreatorIndex> {
 
   void setDifficulty(String? value) {
     setState(() {
-      difficulty = value ?? 'Beginner'; // Set to default if value is null
+      difficulty = value ?? 'Beginner';
+    });
+  }
+
+  void setGender(String? value) {
+    setState(() {
+      gender = value ?? 'Male';
+    });
+  }
+
+  void setGoal(String? value) {
+    setState(() {
+      goal = value ?? 'Maintain weight';
     });
   }
 }
@@ -118,14 +179,20 @@ class Step1 extends StatelessWidget {
   final TextEditingController nameController;
   final TextEditingController nickController;
   final TextEditingController ageController;
+  final String gender;
+  final Function(String?) setGender;
   final Function moveToNextStep;
+  final String errorMessage;
 
   const Step1({
     super.key,
     required this.nameController,
     required this.nickController,
     required this.ageController,
+    required this.gender,
+    required this.setGender,
     required this.moveToNextStep,
+    required this.errorMessage,
   });
 
   @override
@@ -148,6 +215,29 @@ class Step1 extends StatelessWidget {
             decoration: const InputDecoration(labelText: 'Enter Age'),
             keyboardType: TextInputType.number,
           ),
+          DropdownButtonFormField<String>(
+            value: gender,
+            onChanged: setGender,
+            decoration: const InputDecoration(
+              labelText: 'Select Gender',
+              border: OutlineInputBorder(),
+            ),
+            items: <String>['Male', 'Female']
+                .map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
+          if (errorMessage.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                errorMessage,
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () => moveToNextStep(),
@@ -163,12 +253,14 @@ class Step2 extends StatelessWidget {
   final TextEditingController weightController;
   final TextEditingController heightController;
   final Function moveToNextStep;
+  final String errorMessage;
 
   const Step2({
     super.key,
     required this.weightController,
     required this.heightController,
     required this.moveToNextStep,
+    required this.errorMessage,
   });
 
   @override
@@ -188,6 +280,14 @@ class Step2 extends StatelessWidget {
             decoration: const InputDecoration(labelText: 'Enter Height'),
             keyboardType: TextInputType.number,
           ),
+          if (errorMessage.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                errorMessage,
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () => moveToNextStep(),
@@ -203,20 +303,26 @@ class Step3 extends StatelessWidget {
   final String activityLevel;
   final bool needsDumbell;
   final String difficulty;
+  final String goal;
   final Function(String?) setActivityLevel;
   final Function(bool) setNeedsDumbell;
   final Function(String?) setDifficulty;
+  final Function(String?) setGoal;
   final Function moveToNextStep;
+  final String errorMessage;
 
   const Step3({
     super.key,
     required this.activityLevel,
     required this.needsDumbell,
     required this.difficulty,
+    required this.goal,
     required this.setActivityLevel,
     required this.setNeedsDumbell,
     required this.setDifficulty,
+    required this.setGoal,
     required this.moveToNextStep,
+    required this.errorMessage,
   });
 
   @override
@@ -268,6 +374,30 @@ class Step3 extends StatelessWidget {
             }).toList(),
           ),
           const SizedBox(height: 20),
+          DropdownButtonFormField<String>(
+            value: goal,
+            onChanged: setGoal,
+            decoration: const InputDecoration(
+              labelText: 'Select Goal',
+              border: OutlineInputBorder(),
+            ),
+            items: <String>['Lose weight', 'Gain weight', 'Maintain weight']
+                .map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
+          if (errorMessage.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                errorMessage,
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
+          const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () => moveToNextStep(),
             child: const Text('Next'),
@@ -288,6 +418,8 @@ class Step4 extends StatelessWidget {
   final String activityLevel;
   final bool needsDumbell;
   final String difficulty;
+  final String gender;
+  final String goal;
   final Function resetForm;
   final FirestoreService firestoreService;
 
@@ -302,6 +434,8 @@ class Step4 extends StatelessWidget {
     required this.activityLevel,
     required this.needsDumbell,
     required this.difficulty,
+    required this.gender,
+    required this.goal,
     required this.resetForm,
     required this.firestoreService,
   });
@@ -321,9 +455,22 @@ class Step4 extends StatelessWidget {
           Text('Activity Level: $activityLevel'),
           Text('Needs Dumbell: $needsDumbell'),
           Text('Difficulty: $difficulty'),
+          Text('Gender: $gender'),
+          Text('Goal: $goal'),
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
+              // Calculate caloric needs
+              double caloricNeed = calculateCaloricIntake(
+                gender: gender,
+                age: int.parse(age),
+                weight: double.parse(weight),
+                height: double.parse(height),
+                activityLevel: activityLevel,
+                goal: goal,
+              );
+
+              // Add user to Firestore
               firestoreService
                   .addUser(
                 userId,
@@ -335,9 +482,11 @@ class Step4 extends StatelessWidget {
                 activityLevel,
                 needsDumbell,
                 difficulty,
+                gender,
+                goal,
+                caloricNeed, // Add caloricNeed to the addUser function call
               )
                   .then((_) {
-                // User added successfully, you can perform any additional actions here
                 resetForm(context);
               }).catchError((error) {
                 // Handle error

@@ -1,30 +1,33 @@
-// import 'dart:async';
-// import './resetDietandWorkouts.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitnessquest_v1/components/timer/resetDietandWorkouts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-// class TimeHandler {
-//   final User user;
-//   late Timer _timer;
-//   late int _day; // Declare the day variable
-//   late String _calories;
+class TimeHandler {
+  final int numberOfDays =
+      3; // Adjust this to however many days you want in the sequence
 
-//   TimeHandler(this.user) {
-//     _day = 1; // Initialize day variable
-//   }
+  Future<int> getCurrentDayIndex() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final int storedIndex = prefs.getInt('dayIndex') ?? 1;
+    final String lastDate = prefs.getString('lastDate') ?? '';
 
-//   // Getter method for day variable
-//   int get day => _day;
+    final String currentDate =
+        DateTime.now().toIso8601String().substring(0, 10);
 
-//   void start() {
-//     // Start the timer to update day variable every 24 hours
-//     _timer = Timer.periodic(const Duration(hours: 24), (timer) {
-//       _day++; // Increment day variable every 24 hours
-//       resetStuff(user); // Reset diet and workouts every 24 hours
-//     });
-//   }
+    if (lastDate != currentDate) {
+      print('New day, resetting index $storedIndex ');
+      final int newIndex = (storedIndex % numberOfDays) + 1;
+      resetStuff();
+      await prefs.setInt('dayIndex', newIndex);
+      await prefs.setString('lastDate', currentDate);
 
-//   void stop() {
-//     // Cancel the timer when needed
-//     _timer.cancel();
-//   }
-// }
+      return newIndex;
+    } else {
+      // Same day, use the stored index
+      return storedIndex;
+    }
+  }
+
+  int getDay(int index) {
+    return index;
+  }
+}

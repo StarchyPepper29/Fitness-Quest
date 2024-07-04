@@ -37,7 +37,7 @@ class _LoginOrSignUpState extends State<LoginOrSignUp> {
               },
               child: const Text('Sign Up'),
             ),
-            if (isLogin) const loginScreen(),
+            if (isLogin) const LoginScreen(),
             if (isSignUp) const SignUpScreen(),
           ],
         ),

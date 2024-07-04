@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class loginScreen extends StatelessWidget {
-  const loginScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: Column(
         children: [
-          Text('Login'),
-          LoginForm(), // Pass the BuildContext here
+          const SizedBox(height: 20.0), // Spacer for the image
+          Image.asset(
+            'images/LoginDrawing.png', // Replace with your image path
+            height: 80.0,
+            width: 80.0,
+          ),
+          const SizedBox(height: 20.0), // Spacer between image and form
+          Text('Login', style: TextStyle(fontSize: 24.0)),
+          const SizedBox(height: 20.0), // Spacer between text and form
+          LoginForm(),
         ],
       ),
     );
@@ -18,7 +26,7 @@ class loginScreen extends StatelessWidget {
 }
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+  const LoginForm({Key? key}) : super(key: key);
 
   @override
   _LoginFormState createState() => _LoginFormState();
@@ -37,7 +45,12 @@ class _LoginFormState extends State<LoginForm> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           TextFormField(
-            decoration: const InputDecoration(labelText: 'Email'),
+            decoration: InputDecoration(
+              labelText: 'Email',
+              border: OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xff8360)),
+              ),
+            ),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your email';
@@ -50,7 +63,12 @@ class _LoginFormState extends State<LoginForm> {
           ),
           const SizedBox(height: 16.0),
           TextFormField(
-            decoration: const InputDecoration(labelText: 'Password'),
+            decoration: InputDecoration(
+              labelText: 'Password',
+              border: OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xff8360)),
+              ),
+            ),
             obscureText: true,
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -78,6 +96,26 @@ class _LoginFormState extends State<LoginForm> {
   }
 }
 
+void showErrorDialog(BuildContext context, String message) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Error'),
+        content: Text(message),
+        actions: [
+          TextButton(
+            child: const Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
 void loginFunction(BuildContext context, String email, String password) async {
   try {
     await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -85,15 +123,17 @@ void loginFunction(BuildContext context, String email, String password) async {
       password: password,
     );
     print('User logged in successfully!');
+    // Navigate to home or another screen upon successful login
+    // Navigator.of(context).pushReplacementNamed('/home');
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
-      print('No user found for that email.');
+      showErrorDialog(context, 'No user found for that email.');
     } else if (e.code == 'wrong-password') {
-      print('Wrong password provided for that user.');
+      showErrorDialog(context, 'Wrong password provided for that user.');
     } else {
-      print('Error: ${e.message}');
+      showErrorDialog(context, 'Error: ${e.message}');
     }
   } catch (e) {
-    print('Error: $e');
+    showErrorDialog(context, 'Error: $e');
   }
 }

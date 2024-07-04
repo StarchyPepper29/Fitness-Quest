@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import './dietlogwidget.dart';
+import './caloricCalc.dart';
 
 class Diet extends StatefulWidget {
   final User user;
@@ -24,7 +25,40 @@ class _DietState extends State<Diet> {
   @override
   void initState() {
     super.initState();
+    fetchCaloricNeeds();
     fetchFoods();
+  }
+
+  void fetchCaloricNeeds() async {
+    try {
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      print('Fetching user preferences for ${widget.user.uid}');
+      QuerySnapshot querySnapshot = await firestore
+          .collection('users')
+          .where('userId', isEqualTo: widget.user.uid)
+          .limit(1)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        print('User data found');
+        Map<String, dynamic> userData =
+            querySnapshot.docs.first.data() as Map<String, dynamic>;
+
+        if (userData != null) {
+          setState(() {
+            totalCalories = (userData['caloricNeed'] ?? 2000).toInt();
+
+            totalCaloriesPrintable = totalCalories.toString();
+          });
+        } else {
+          print('User data is null');
+        }
+      } else {
+        print('No user data found');
+      }
+    } catch (e) {
+      print('Error fetching user data: $e');
+    }
   }
 
   void fetchFoods() async {
@@ -167,7 +201,7 @@ class _DietState extends State<Diet> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  food[2],
+                                  food[1],
                                   style: const TextStyle(
                                     color: Color.fromARGB(255, 37, 40, 197),
                                     fontSize: 18,

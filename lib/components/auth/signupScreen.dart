@@ -7,9 +7,9 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: Column(
-        children: [
+        children: const [
           Text('Sign Up'),
           RegisterForm(),
           GoogleSignInButton(),
@@ -31,6 +31,7 @@ class _RegisterFormState extends State<RegisterForm> {
   late String _email;
   late String _password;
   late String _name;
+  String _errorMessage = '';
 
   @override
   Widget build(BuildContext context) {
@@ -87,14 +88,57 @@ class _RegisterFormState extends State<RegisterForm> {
             },
             child: const Text('Register'),
           ),
+          if (_errorMessage.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                _errorMessage,
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
         ],
       ),
     );
   }
+
+  void signUpFunction(String email, String password, String name) async {
+    try {
+      final UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      await userCredential.user!.updateDisplayName(name);
+
+      print('User registered successfully!');
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        if (e.code == 'weak-password') {
+          _errorMessage = 'The password provided is too weak.';
+        } else if (e.code == 'email-already-in-use') {
+          _errorMessage = 'The account already exists for that email.';
+        } else {
+          _errorMessage = 'Error: ${e.message}';
+        }
+      });
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'Error: $e';
+      });
+    }
+  }
 }
 
-class GoogleSignInButton extends StatelessWidget {
+class GoogleSignInButton extends StatefulWidget {
   const GoogleSignInButton({super.key});
+
+  @override
+  _GoogleSignInButtonState createState() => _GoogleSignInButtonState();
+}
+
+class _GoogleSignInButtonState extends State<GoogleSignInButton> {
+  String _errorMessage = '';
 
   @override
   Widget build(BuildContext context) {
@@ -107,55 +151,40 @@ class GoogleSignInButton extends StatelessWidget {
               signInWithGoogle().then((userCredential) {
                 // Handle successful sign-in
               }).catchError((error) {
-                // Handle sign-in errors
+                setState(() {
+                  _errorMessage = 'Error: $error';
+                });
               });
             },
             child: const Text('Sign in with Google'),
           ),
+          if (_errorMessage.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                _errorMessage,
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
         ],
       ),
     );
   }
-}
 
-void signUpFunction(String email, String password, String name) async {
-  try {
-    final UserCredential userCredential =
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+  Future<UserCredential> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
 
-    // You can also update user profile here if needed
-    await userCredential.user!.updateDisplayName(name);
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
 
-    print('User registered successfully!');
-  } on FirebaseAuthException catch (e) {
-    if (e.code == 'weak-password') {
-      print('The password provided is too weak.');
-    } else if (e.code == 'email-already-in-use') {
-      print('The account already exists for that email.');
-    } else {
-      print('Error: ${e.message}');
+      return await FirebaseAuth.instance.signInWithCredential(credential);
+    } catch (error) {
+      rethrow;
     }
-  } catch (e) {
-    print('Error: $e');
-  }
-}
-
-Future<UserCredential> signInWithGoogle() async {
-  try {
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
-
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
-
-    return await FirebaseAuth.instance.signInWithCredential(credential);
-  } catch (error) {
-    rethrow;
   }
 }

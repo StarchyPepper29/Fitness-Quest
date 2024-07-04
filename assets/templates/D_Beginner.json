@@ -5,61 +5,71 @@
         "name": "Jumping Jacks",
         "instructions": "Start with feet together, jump while spreading legs and raising arms overhead, then return to starting position.",
         "sets": "2 x 15",
-        "rest_period": "Rest 30 seconds"
+        "rest_period": "Rest 30 seconds",
+        "fitni_score": 7
       },
       {
         "name": "Arm Circles",
         "instructions": "Stand with arms extended to the sides, make circular motions with arms in a forward direction, then switch to backward circles.",
         "sets": "1 x 20 sec",
-        "rest_period": "Rest 20 seconds"
+        "rest_period": "Rest 20 seconds",
+        "fitni_score": 5
       },
       {
         "name": "Leg Swings",
         "instructions": "Hold onto a stable surface, swing one leg forward and backward in a controlled motion, then switch to the other leg.",
         "sets": "1 x 20 sec",
-        "rest_period": "Rest 20 seconds"
+        "rest_period": "Rest 20 seconds",
+        "fitni_score": 6
       },
       {
         "name": "Dumbbell Bench Press",
         "instructions": "Lie on a bench with dumbbells in hand, arms extended above chest, lower dumbbells to sides of chest, then press back up to starting position.",
         "sets": "2 x 8",
-        "rest_period": "Rest 30 seconds"
+        "rest_period": "Rest 30 seconds",
+        "fitni_score": 8
       },
       {
         "name": "Bodyweight Rows",
         "instructions": "Find a sturdy horizontal bar at waist height, hang underneath with arms extended, pull body up until chest touches bar, then lower back down.",
         "sets": "2 x 8",
-        "rest_period": "Rest 30 seconds"
+        "rest_period": "Rest 30 seconds",
+        "fitni_score": 7
       },
       {
         "name": "Dumbbell Shoulder Press",
         "instructions": "Sit on a bench or chair with back support, hold dumbbells at shoulder height, press weights overhead until arms are fully extended, then lower back down.",
         "sets": "2 x 8",
-        "rest_period": "Rest 30 seconds"
+        "rest_period": "Rest 30 seconds",
+        "fitni_score": 8
       },
       {
         "name": "Plank",
         "instructions": "Assume a push-up position with body straight from head to heels, hold this position, engaging core muscles.",
         "sets": "2 x 20 sec",
-        "rest_period": "Rest 30 seconds"
+        "rest_period": "Rest 30 seconds",
+        "fitni_score": 9
       },
       {
         "name": "Chest Stretch",
         "instructions": "Stand with one arm extended against a wall or doorway, rotate body away from arm until a stretch is felt in the chest, hold for 20-30 seconds, then switch arms.",
         "sets": "1 x 20 sec",
-        "rest_period": "Rest 20 seconds"
+        "rest_period": "Rest 20 seconds",
+        "fitni_score": 6
       },
       {
         "name": "Triceps Stretch",
         "instructions": "Extend one arm overhead, bend elbow and reach hand down the center of the back, gently press elbow with other hand, hold for 20-30 seconds, then switch arms.",
         "sets": "1 x 20 sec",
-        "rest_period": "Rest 20 seconds"
+        "rest_period": "Rest 20 seconds",
+        "fitni_score": 5
       },
       {
         "name": "Shoulder Stretch",
         "instructions": "Bring one arm across the body, hook the other arm under and pull towards chest until a stretch is felt in the shoulder, hold for 20-30 seconds, then switch arms.",
         "sets": "1 x 20 sec",
-        "rest_period": "Rest 20 seconds"
+        "rest_period": "Rest 20 seconds",
+        "fitni_score": 6
       }
     ]
   },
@@ -69,61 +79,71 @@
         "name": "Jumping Jacks",
         "instructions": "Start with feet together, jump while spreading legs and raising arms overhead, then return to starting position.",
         "sets": "2 x 15",
-        "rest_period": "Rest 30 seconds"
+        "rest_period": "Rest 30 seconds",
+        "fitni_score": 7
       },
       {
         "name": "Arm Circles",
         "instructions": "Stand with arms extended to the sides, make circular motions with arms in a forward direction, then switch to backward circles.",
         "sets": "1 x 20 sec",
-        "rest_period": "Rest 20 seconds"
+        "rest_period": "Rest 20 seconds",
+        "fitni_score": 6
       },
       {
         "name": "Leg Swings",
         "instructions": "Hold onto a stable surface, swing one leg forward and backward in a controlled motion, then switch to the other leg.",
         "sets": "1 x 20 sec",
-        "rest_period": "Rest 20 seconds"
+        "rest_period": "Rest 20 seconds",
+        "fitni_score": 5
       },
       {
         "name": "Goblet Squats with Dumbbell",
         "instructions": "Hold a dumbbell vertically at chest height, squat down as low as possible while keeping heels flat and chest up, then return to standing position.",
         "sets": "2 x 8",
-        "rest_period": "Rest 30 seconds"
+        "rest_period": "Rest 30 seconds",
+        "fitni_score": 8
       },
       {
         "name": "Dumbbell Lunges",
         "instructions": "Stand with dumbbells in hand, step forward with one leg and lower body until both knees are bent at 90-degree angles, then return to standing position and switch legs.",
         "sets": "2 x 8",
-        "rest_period": "Rest 30 seconds"
+        "rest_period": "Rest 30 seconds",
+        "fitni_score": 7
       },
       {
         "name": "Calf Raises",
         "instructions": "Stand with feet hip-width apart, rise onto toes by lifting heels as high as possible, then lower heels back down.",
         "sets": "2 x 10",
-        "rest_period": "Rest 30 seconds"
+        "rest_period": "Rest 30 seconds",
+        "fitni_score": 6
       },
       {
         "name": "Dumbbell Romanian Deadlifts",
         "instructions": "Hold dumbbells in front of thighs, hinge at hips to lower torso while keeping back straight, then return to standing position.",
         "sets": "2 x 8",
-        "rest_period": "Rest 30 seconds"
+        "rest_period": "Rest 30 seconds",
+        "fitni_score": 7
       },
       {
         "name": "Hamstring Stretch",
         "instructions": "Sit on the ground with one leg extended and the other bent, lean forward from the hips until you feel a stretch in the back of the extended leg, hold for 20-30 seconds, then switch legs.",
         "sets": "1 x 20 sec",
-        "rest_period": "Rest 20 seconds"
+        "rest_period": "Rest 20 seconds",
+        "fitni_score": 5
       },
       {
         "name": "Quadriceps Stretch",
         "instructions": "Stand upright, bend one knee and bring your foot towards your buttocks, grasp your ankle with your hand and gently pull your heel towards your buttocks until you feel a stretch in the front of your thigh, hold for 20-30 seconds, then switch legs.",
         "sets": "1 x 20 sec",
-        "rest_period": "Rest 20 seconds"
+        "rest_period": "Rest 20 seconds",
+        "fitni_score": 6
       },
       {
         "name": "Calf Stretch",
         "instructions": "Stand facing a wall with hands on the wall at shoulder height, place one foot behind you with heel on the ground, bend front knee until a stretch is felt in the calf, hold for 20-30 seconds, then switch legs.",
         "sets": "1 x 20 sec",
-        "rest_period": "Rest 20 seconds"
+        "rest_period": "Rest 20 seconds",
+        "fitni_score": 6
       }
     ]
   },
@@ -133,61 +153,71 @@
         "name": "Jumping Jacks",
         "instructions": "Start with feet together, jump while spreading legs and raising arms overhead, then return to starting position.",
         "sets": "2 x 15",
-        "rest_period": "Rest 30 seconds"
+        "rest_period": "Rest 30 seconds",
+        "fitni_score": 7
       },
       {
         "name": "Arm Circles",
         "instructions": "Stand with arms extended to the sides, make circular motions with arms in a forward direction, then switch to backward circles.",
         "sets": "1 x 20 sec",
-        "rest_period": "Rest 20 seconds"
+        "rest_period": "Rest 20 seconds",
+        "fitni_score": 5
       },
       {
         "name": "Leg Swings",
         "instructions": "Hold onto a stable surface, swing one leg forward and backward in a controlled motion, then switch to the other leg.",
         "sets": "1 x 20 sec",
-        "rest_period": "Rest 20 seconds"
+        "rest_period": "Rest 20 seconds",
+        "fitni_score": 6
       },
       {
         "name": "Dumbbell Burpees",
         "instructions": "Begin in a standing position, hold dumbbells in hand, drop into a squat position with hands on the ground, kick feet back into a plank position, do a push-up, then jump back to the squat position and jump up with arms overhead.",
         "sets": "2 x 6",
-        "rest_period": "Rest 30 seconds"
+        "rest_period": "Rest 30 seconds",
+        "fitni_score": 8
       },
       {
         "name": "Russian Twists with Dumbbell",
         "instructions": "Sit on the ground with knees bent, lean back slightly and lift feet off the ground, hold a dumbbell with both hands and twist torso from side to side, touching the dumbbell to the ground on each side.",
         "sets": "2 x 8",
-        "rest_period": "Rest 30 seconds"
+        "rest_period": "Rest 30 seconds",
+        "fitni_score": 7
       },
       {
         "name": "Dumbbell Renegade Rows",
         "instructions": "Start in a plank position with dumbbells in hand, row one dumbbell up towards the hip while stabilizing with the other arm, then switch sides.",
         "sets": "2 x 8",
-        "rest_period": "Rest 30 seconds"
+        "rest_period": "Rest 30 seconds",
+        "fitni_score": 7
       },
       {
         "name": "Bicycle Crunches",
         "instructions": "Lie on your back with hands behind your head, lift shoulders off the ground, bring one knee towards the opposite elbow while extending the other leg straight, alternate sides in a pedaling motion.",
         "sets": "2 x 8",
-        "rest_period": "Rest 30 seconds"
+        "rest_period": "Rest 30 seconds",
+        "fitni_score": 7
       },
       {
         "name": "Chest Stretch",
         "instructions": "Stand with feet shoulder-width apart, clasp hands behind your back, straighten arms and lift them slightly while squeezing shoulder blades together, hold for 20-30 seconds.",
         "sets": "1 x 20 sec",
-        "rest_period": "Rest 20 seconds"
+        "rest_period": "Rest 20 seconds",
+        "fitni_score": 6
       },
       {
         "name": "Triceps Stretch",
         "instructions": "Extend one arm overhead, bend elbow and reach hand down the center of the back, gently press elbow with other hand, hold for 20-30 seconds, then switch arms.",
         "sets": "1 x 20 sec",
-        "rest_period": "Rest 20 seconds"
+        "rest_period": "Rest 20 seconds",
+        "fitni_score": 5
       },
       {
         "name": "Seated Forward Bend",
         "instructions": "Sit on the ground with legs extended in front, hinge at hips to lean forward and reach towards toes, keeping back straight, hold for 20-30 seconds.",
         "sets": "1 x 20 sec",
-        "rest_period": "Rest 20 seconds"
+        "rest_period": "Rest 20 seconds",
+        "fitni_score": 5
       }
     ]
   }
