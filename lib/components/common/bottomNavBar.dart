@@ -5,8 +5,10 @@ import 'package:fitnessquest_v1/components/IbrahimsStuff/lib/exercise.dart';
 import '../../screens/profile.dart';
 import '../../screens/goals.dart';
 import '../../screens/settings.dart';
+import '../timer/beginningofTime.dart';
 import '../../screens/shop.dart';
 import '../../screens/story.dart';
+// Import the AvatarService
 
 class BottomNavBar extends StatefulWidget {
   final User user;
@@ -80,6 +82,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String? displayName;
+  final AvatarService _avatarService =
+      AvatarService(); // Initialize the AvatarService
 
   @override
   void initState() {
@@ -220,6 +224,20 @@ class _HomePageState extends State<HomePage> {
                       builder: (context) => Shop(user: widget.user)),
                 );
               },
+            ),
+          ),
+          Positioned(
+            bottom: 20,
+            left: 20,
+            right: 20,
+            child: ElevatedButton(
+              onPressed: () async {
+                await _avatarService.initializeAll();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Initialization complete')),
+                );
+              },
+              child: const Text('Initialize All'),
             ),
           ),
         ],

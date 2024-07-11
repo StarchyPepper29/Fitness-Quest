@@ -21,6 +21,7 @@ class _DietState extends State<Diet> {
   int consumedCalories = 0;
   List<List<String>> _data = [];
   final List<Map<String, dynamic>> _foodLog = [];
+  int weight = 0;
 
   @override
   void initState() {
@@ -76,24 +77,23 @@ class _DietState extends State<Diet> {
         Map<String, dynamic> loggedFood =
             querySnapshot.docs.first.data() as Map<String, dynamic>;
 
-        if (loggedFood != null) {
-          setState(() {
-            _data = (loggedFood['foodLog'] as List<dynamic>).map((item) {
-              Map<String, dynamic> foodItem = item as Map<String, dynamic>;
-              return [
-                foodItem['calories'].toString(),
-                foodItem['uri'] as String,
-                foodItem['name'] as String
-              ];
-            }).toList();
+        print('Logged Food Data: $loggedFood');
 
-            consumedCalories = loggedFood['consumedCalories'] ?? 0;
-            totalCalories -= consumedCalories;
-            totalCaloriesPrintable = totalCalories.toString();
-          });
-        } else {
-          print('Logged food data is null');
-        }
+        setState(() {
+          _data = (loggedFood['foodLog'] as List<dynamic>).map((item) {
+            Map<String, dynamic> foodItem = item as Map<String, dynamic>;
+            return [
+              foodItem['calories'].toString(),
+              foodItem['uri'] as String,
+              foodItem['name'] as String,
+              foodItem['weight'].toString(),
+            ];
+          }).toList();
+
+          consumedCalories = loggedFood['consumedCalories'] ?? 0;
+          totalCalories -= consumedCalories;
+          totalCaloriesPrintable = totalCalories.toString();
+        });
       } else {
         print('No logged food found');
       }
@@ -109,12 +109,13 @@ class _DietState extends State<Diet> {
       ),
     );
 
-    if (result != null && result.length == 3) {
+    if (result != null && result.length == 4) {
       setState(() {
         _data.add(result);
         consumedCalories += int.parse(result[0]);
         totalCalories -= int.parse(result[0]);
         totalCaloriesPrintable = totalCalories.toString();
+        weight = int.parse(result[3]);
       });
     }
   }
@@ -123,11 +124,13 @@ class _DietState extends State<Diet> {
     _foodLog.clear();
     for (var foodItem in data) {
       _foodLog.add({
+        'weight': int.parse(foodItem[3]),
         'name': foodItem[2],
         'uri': foodItem[1],
         'calories': int.parse(foodItem[0]),
       });
     }
+    print('Storing Food Log: $_foodLog');
     FirestoreService().addFoodLog(widget.user.uid, _foodLog, consumedCalories);
     Navigator.pop(context);
   }
@@ -212,6 +215,13 @@ class _DietState extends State<Diet> {
                                   style: const TextStyle(
                                     color: Colors.grey,
                                     fontSize: 14,
+                                  ),
+                                ),
+                                Text(
+                                  food[3],
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18,
                                   ),
                                 ),
                               ],

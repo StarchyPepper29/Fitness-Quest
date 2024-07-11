@@ -7,13 +7,14 @@ class ProductBox extends StatefulWidget {
   final String type;
   final List<Map<String, String>> products;
   final User user;
-
+  final Function(int) updateFitopians;
   const ProductBox({
     Key? key,
     required this.title,
     required this.type,
     required this.products,
     required this.user,
+    required this.updateFitopians,
   }) : super(key: key);
 
   @override
@@ -122,7 +123,7 @@ class _ProductBoxState extends State<ProductBox> {
           userFitopians = updatedFitopians;
           isAlreadyOwned = true;
         });
-
+        widget.updateFitopians(updatedFitopians);
         showDialog(
           context: context,
           builder: (BuildContext context) {

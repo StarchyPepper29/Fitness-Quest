@@ -19,7 +19,11 @@ class _StoryState extends State<Story> {
   int proteinBars = 0;
   List<String> claimedIds = [];
   int bossesDefeated = 0;
-
+  List<String> buffs = [
+    "assets/avatar/torso/icebreaker.png",
+    "assets/avatar/multipliers/fito2x.png",
+    // Add more buffs as needed
+  ];
   @override
   void initState() {
     super.initState();
@@ -155,6 +159,15 @@ class _StoryState extends State<Story> {
   void incrementFitniQuestNormal() async {
     int updatedFitopians = fitopians + 20;
     int updatedProteinBars = proteinBars + 1;
+
+    for (String buffPath in buffs) {
+      if (buffPath.contains('fito2x')) {
+        updatedFitopians *= 2; // Double fitopians
+      } else if (buffPath.contains('icebreaker')) {
+        updatedProteinBars *= 2; // Double protein bars
+      }
+    }
+
     try {
       // Increment fitniPoints by 20
       await FirebaseFirestore.instance
@@ -178,6 +191,15 @@ class _StoryState extends State<Story> {
   void incrementFitniQuestBoss() async {
     int updatedFitopians = fitopians + 100;
     int updatedProteinBars = proteinBars + 5;
+
+    for (String buffPath in buffs) {
+      if (buffPath.contains('fito2x')) {
+        updatedFitopians *= 2; // Double fitopians
+      } else if (buffPath.contains('icebreaker')) {
+        updatedProteinBars *= 2; // Double protein bars
+      }
+    }
+
     try {
       // Increment fitniPoints by 100
       await FirebaseFirestore.instance
@@ -331,7 +353,7 @@ class _StoryState extends State<Story> {
       child: Container(
         width: 110,
         height: 80,
-        margin: const EdgeInsets.only(top: 0, right: 130, left: 130),
+        margin: const EdgeInsets.only(top: 0, right: 145, left: 145),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
         ),

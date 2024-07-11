@@ -27,6 +27,12 @@ class _AvatarShopState extends State<AvatarShop> {
     fetchUserData();
   }
 
+  void updateFitopians(int newFitopians) {
+    setState(() {
+      fitopians = newFitopians;
+    });
+  }
+
   Future<void> fetchUserData() async {
     try {
       DocumentSnapshot docSnapshot = await FirebaseFirestore.instance
@@ -101,7 +107,8 @@ class _AvatarShopState extends State<AvatarShop> {
                       },
                     ],
                     user: widget.user,
-                  )
+                    updateFitopians: updateFitopians,
+                  ),
                 ],
               ),
             ),

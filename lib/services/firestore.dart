@@ -21,19 +21,36 @@ class FirestoreService {
     });
   }
 
-  Future<void> updateFitniQuest(String userId, int questScore) async {
+  Future<void> updateFitniQuest(
+      String userId,
+      int questScore,
+      int streak,
+      int daysTracked,
+      int caloriesBurned,
+      int workoutsCompleted,
+      String rank) async {
     final DocumentReference docRef = fitniQuest.doc(userId);
 
     try {
       await docRef.update({
         'questScore': FieldValue.increment(questScore),
+        'streak': streak,
+        'daysTracked': daysTracked,
+        'caloriesBurned': FieldValue.increment(caloriesBurned),
+        'workoutsCompleted': FieldValue.increment(workoutsCompleted),
+        'rank': rank,
       });
     } catch (e) {
       if (e is FirebaseException && e.code == 'not-found') {
-        // Document does not exist, create it with the initial questScore
+        // Document does not exist, create it with the initial values
         await docRef.set({
           'userId': userId,
           'questScore': questScore,
+          'streak': streak,
+          'daysTracked': daysTracked,
+          'caloriesBurned': caloriesBurned,
+          'workoutsCompleted': workoutsCompleted,
+          'rank': rank,
         });
       } else {
         rethrow;

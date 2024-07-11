@@ -1,4 +1,4 @@
-import 'package:fitnessquest_v1/components/timer/resetDietandWorkouts.dart';
+import './resetDietandWorkouts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TimeHandler {
@@ -16,7 +16,8 @@ class TimeHandler {
     if (lastDate != currentDate) {
       print('New day, resetting index $storedIndex ');
       final int newIndex = (storedIndex % numberOfDays) + 1;
-      resetStuff();
+      deletetheUniverse();
+
       await prefs.setInt('dayIndex', newIndex);
       await prefs.setString('lastDate', currentDate);
 

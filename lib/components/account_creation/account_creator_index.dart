@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../services/firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import '../timer/beginningofTime.dart';
 import '../dietlogger/caloricCalc.dart';
+import 'avatarCustomizerPage.dart';
 
 class CreatorIndex extends StatefulWidget {
   final User user;
@@ -65,21 +66,26 @@ class _CreatorIndexState extends State<CreatorIndex> {
                         moveToNextStep: moveToNextStep,
                         errorMessage: errorMessage,
                       )
-                    : Step4(
-                        userId: widget.userId,
-                        name: nameController.text,
-                        nick: nickController.text,
-                        age: ageController.text,
-                        weight: weightController.text,
-                        height: heightController.text,
-                        activityLevel: activityLevel,
-                        needsDumbell: needsDumbell,
-                        difficulty: difficulty,
-                        gender: gender,
-                        goal: goal,
-                        resetForm: resetForm,
-                        firestoreService: firestoreService,
-                      ),
+                    : currentStep == 3
+                        ? AvatarCustomizerPage(
+                            user: widget.user,
+                            moveToNextStep: moveToNextStep,
+                          )
+                        : Step4(
+                            userId: widget.userId,
+                            name: nameController.text,
+                            nick: nickController.text,
+                            age: ageController.text,
+                            weight: weightController.text,
+                            height: heightController.text,
+                            activityLevel: activityLevel,
+                            needsDumbell: needsDumbell,
+                            difficulty: difficulty,
+                            gender: gender,
+                            goal: goal,
+                            resetForm: resetForm,
+                            firestoreService: firestoreService,
+                          ),
       ),
     );
   }
@@ -107,7 +113,7 @@ class _CreatorIndexState extends State<CreatorIndex> {
     }
 
     setState(() {
-      currentStep += 1;
+      currentStep += 1; // Increment currentStep
     });
   }
 
@@ -339,7 +345,7 @@ class Step3 extends StatelessWidget {
               labelText: 'Select Activity Level',
               border: OutlineInputBorder(),
             ),
-            items: <String>['Sedentary', 'Moderate', 'Active', 'Very Active']
+            items: <String>['Sedentary', 'Moderate', 'Active']
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
@@ -347,17 +353,11 @@ class Step3 extends StatelessWidget {
               );
             }).toList(),
           ),
-          const SizedBox(height: 20),
-          Row(
-            children: [
-              const Text('Needs Dumbell: '),
-              Switch(
-                value: needsDumbell,
-                onChanged: setNeedsDumbell,
-              ),
-            ],
+          SwitchListTile(
+            title: const Text('Needs Dumbbell'),
+            value: needsDumbell,
+            onChanged: setNeedsDumbell,
           ),
-          const SizedBox(height: 20),
           DropdownButtonFormField<String>(
             value: difficulty,
             onChanged: setDifficulty,
@@ -373,7 +373,6 @@ class Step3 extends StatelessWidget {
               );
             }).toList(),
           ),
-          const SizedBox(height: 20),
           DropdownButtonFormField<String>(
             value: goal,
             onChanged: setGoal,
@@ -381,7 +380,7 @@ class Step3 extends StatelessWidget {
               labelText: 'Select Goal',
               border: OutlineInputBorder(),
             ),
-            items: <String>['Lose weight', 'Gain weight', 'Maintain weight']
+            items: <String>['Lose weight', 'Maintain weight', 'Gain weight']
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
@@ -447,53 +446,53 @@ class Step4 extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Text('Summary'),
           Text('Name: $name'),
           Text('Nick: $nick'),
           Text('Age: $age'),
           Text('Weight: $weight'),
           Text('Height: $height'),
           Text('Activity Level: $activityLevel'),
-          Text('Needs Dumbell: $needsDumbell'),
+          Text('Needs Dumbbell: $needsDumbell'),
           Text('Difficulty: $difficulty'),
           Text('Gender: $gender'),
           Text('Goal: $goal'),
           const SizedBox(height: 20),
           ElevatedButton(
-            onPressed: () {
-              // Calculate caloric needs
-              double caloricNeed = calculateCaloricIntake(
-                gender: gender,
-                age: int.parse(age),
-                weight: double.parse(weight),
-                height: double.parse(height),
-                activityLevel: activityLevel,
-                goal: goal,
-              );
+            onPressed: () async {
+              try {
+                // Calculate caloric needs
+                double caloricNeed = calculateCaloricIntake(
+                  gender: gender,
+                  age: int.parse(age),
+                  weight: double.parse(weight),
+                  height: double.parse(height),
+                  activityLevel: activityLevel,
+                  goal: goal,
+                );
 
-              // Add user to Firestore
-              firestoreService
-                  .addUser(
-                userId,
-                name,
-                nick,
-                age,
-                weight,
-                height,
-                activityLevel,
-                needsDumbell,
-                difficulty,
-                gender,
-                goal,
-                caloricNeed, // Add caloricNeed to the addUser function call
-              )
-                  .then((_) {
-                resetForm(context);
-              }).catchError((error) {
+                // Add user to Firestore
+                await firestoreService.addUser(
+                  userId,
+                  name,
+                  nick,
+                  age,
+                  weight,
+                  height,
+                  activityLevel,
+                  needsDumbell,
+                  difficulty,
+                  gender,
+                  goal,
+                  caloricNeed, // Add caloricNeed to the addUser function call
+                );
+              } catch (error) {
                 // Handle error
                 print('Failed to add user: $error');
-              });
+              }
+              resetForm(context);
             },
-            child: const Text('Publish'),
+            child: const Text('Submit'),
           ),
         ],
       ),
